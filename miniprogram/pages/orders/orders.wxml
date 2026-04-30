@@ -1,0 +1,57 @@
+<view class="detail-page page">
+  <navigation-bar title="我的订单" back="{{true}}" color="#fff"></navigation-bar>
+
+  <scroll-view class="order-scroll" scroll-y>
+    <view class="detail-body" style="padding-top: 20rpx;">
+      <view class="role-tabs" wx:if="{{authState.isBooster}}">
+        <view class="role-tab {{currentTab === 'placed' ? 'role-tab-active' : ''}}" data-role="placed" bindtap="switchRoleTab">我下的单</view>
+        <view class="role-tab {{currentTab === 'received' ? 'role-tab-active' : ''}}" data-role="received" bindtap="switchRoleTab">我接的单</view>
+      </view>
+
+      <view class="detail-text" wx:if="{{currentTab === 'placed'}}">您的订单会在这里汇总展示。</view>
+
+      <scroll-view class="order-tabs" wx:if="{{currentTab === 'placed'}}" scroll-x enable-flex show-scrollbar="{{false}}">
+        <block wx:for="{{tabs}}" wx:key="id">
+          <view class="order-tab {{activeTab==item.id ? 'order-tab-active' : ''}}" data-tab="{{item.id}}" bindtap="handleTabChange">{{item.label}}</view>
+        </block>
+      </scroll-view>
+
+      <view class="detail-list" wx:if="{{filteredOrders.length}}">
+        <block wx:for="{{filteredOrders}}" wx:key="id">
+          <view class="detail-item">
+            <view class="detail-item-top">
+              <text class="detail-item-title">{{item.title}}</text>
+              <text class="detail-item-status {{item.statusClass}}">{{item.statusText}}</text>
+            </view>
+            <view class="detail-item-sub">服务档位：{{item.summary}}</view>
+            <view class="detail-item-sub">价格信息：{{item.priceSummary}}</view>
+            <view wx:if="{{item.extra}}" class="detail-item-sub">补充说明：{{item.extra}}</view>
+            <view class="detail-item-sub">下单时间：{{item.createdAt}}</view>
+            <view class="detail-item-sub">订单编号：{{item.orderNo}}</view>
+
+            <view wx:if="{{currentTab === 'placed' && item.status == 'pendingAccept'}}" class="detail-item-actions">
+              <view class="order-action order-action-ghost" data-id="{{item.id}}" data-no="{{item.orderNo}}" data-amount="{{item.amount}}" bindtap="handleRefund">退款</view>
+            </view>
+            <view wx:if="{{currentTab === 'received' && item.status == 'inService'}}" class="detail-item-actions">
+              <view class="order-action order-action-ghost" data-id="{{item.id}}" data-userid="{{item._openid}}" data-boosterid="{{item.boosterId}}" bindtap="handleContactCustomer">联系顾客</view>
+              <view class="order-action order-action-primary" data-id="{{item.id}}" bindtap="handleBoosterFinish">提交结单</view>
+            </view>
+            <view wx:if="{{currentTab === 'placed' && item.status == 'pendingSettle'}}" class="detail-item-actions">
+              <view class="order-action order-action-primary" data-id="{{item.id}}" bindtap="handleUserConfirm">确认完成</view>
+              <view class="order-action order-action-csr" data-id="{{item.id}}" data-order="{{item}}" bindtap="handleRequestRefund">申请退款</view>
+            </view>
+            <view wx:if="{{currentTab === 'placed' && item.status == 'completed'}}" class="detail-item-actions">
+              <view class="order-action order-action-csr" data-id="{{item.id}}" data-order="{{item}}" bindtap="handleContactCSR">联系客服</view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view wx:else class="empty-card">
+        <view class="empty-title" wx:if="{{currentTab === 'placed'}}">暂无{{activeTab === 'all' ? '' : activeTabLabel}}订单</view>
+        <view class="empty-title" wx:else>暂无接单</view>
+        <view class="empty-text">{{emptyText}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

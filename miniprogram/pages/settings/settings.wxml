@@ -1,0 +1,102 @@
+<view class="detail-page page">
+  <navigation-bar title="设置" back="{{true}}" color="#fff"></navigation-bar>
+
+  <view class="detail-body" style="padding-top: 20rpx;">
+    <view class="detail-text">可在此管理通知、隐私与账号信息。</view>
+
+    <view class="account-card" wx:if="{{authState.loggedIn}}">
+      <image class="account-avatar" wx:if="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="account-avatar" wx:else>GH</view>
+      <view class="account-info">
+        <view class="account-name">{{userInfo.nickName || 'GapHunt 用户'}}</view>
+        <view class="account-id">ID: {{authState.user_id}}</view>
+      </view>
+    </view>
+
+    <!-- 个人信息修改模块 -->
+    <view class="edit-profile-card" wx:if="{{authState.loggedIn}}">
+      <view class="edit-title">个人信息修改</view>
+      <view class="edit-item">
+        <text class="edit-label">头像</text>
+        <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image class="edit-avatar" src="{{userInfo.avatarUrl || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'}}" mode="aspectFill"></image>
+        </button>
+      </view>
+      <view class="edit-item">
+        <text class="edit-label">昵称</text>
+        <input type="nickname" class="nickname-input" placeholder="请输入/选择昵称" value="{{tempNickName || userInfo.nickName}}" bindblur="onInputNickname" bindinput="onInputNickname" bindchange="onInputNickname" placeholder-style="color: rgba(230,217,255,0.4);" />
+      </view>
+      <!-- 修改：游戏ID管理入口 -->
+      <view class="edit-item" wx:if="{{authState.isBooster}}" bindtap="goToGameIdManager" style="cursor: pointer;">
+        <text class="edit-label">游戏ID</text>
+        <view class="nickname-input" style="display: flex; align-items: center; justify-content: flex-end; color: rgba(255,255,255,0.6);">
+          <text>点击管理各游戏ID</text>
+          <text style="margin-left: 10rpx; font-size: 30rpx;">›</text>
+        </view>
+      </view>
+      <view class="edit-item">
+        <text class="edit-label">性别</text>
+        <!-- 如果已设置性别，显示禁用状态 -->
+        <view wx:if="{{authState.gender !== 'unknown'}}" class="gender-readonly">
+          <text class="gender-text">{{authState.gender === 'male' ? '♂ 男' : '♀ 女'}}</text>
+          <text class="gender-hint">（已设置，不可修改）</text>
+        </view>
+        <!-- 如果未设置性别，显示可选择的radio-group -->
+        <radio-group wx:else class="gender-radio-group" bindchange="onGenderChange">
+          <label class="gender-label">
+            <radio value="male" checked="{{authState.gender === 'male'}}" color="#8b5cf6" /> ♂
+          </label>
+          <label class="gender-label">
+            <radio value="female" checked="{{authState.gender === 'female'}}" color="#8b5cf6" /> ♀
+          </label>
+        </radio-group>
+      </view>
+    </view>
+
+    <view class="account-card" wx:else>
+      <view class="account-info">
+        <view class="account-name">未登录</view>
+        <view class="account-id">登录后可管理账号与安全设置</view>
+        <button class="login-btn" loading="{{loginLoading}}" bindtap="handleWechatLogin">微信一键登录</button>
+        <view class="login-tip" wx:if="{{loginLoading}}">正在调用登录接口，请稍候...</view>
+        <view class="login-error" wx:if="{{loginError}}">{{loginError}}</view>
+      </view>
+    </view>
+
+    <view class="setting-list">
+      <view class="setting-item">
+        <text class="setting-title">消息通知</text>
+        <switch checked color="#8b5cf6" />
+      </view>
+      <view class="setting-item logout-item" wx:if="{{authState.loggedIn}}" bindtap="handleLogout">
+        <text class="setting-title logout-text">退出登录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自定义性别确认模态框 -->
+  <view class="gender-modal-overlay" wx:if="{{showGenderModal}}" catchtap="closeGenderModal">
+    <view class="gender-modal" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">重要提示</text>
+      </view>
+      <view class="modal-body">
+        <view class="gender-highlight">
+          <text class="gender-label-text">准备确认的性别为：</text>
+          <text class="gender-value">{{pendingGender === 'male' ? '♂ 男' : '♀ 女'}}</text>
+        </view>
+        <view class="modal-divider"></view>
+        <text class="modal-warning">陪玩只能设置一次性别，确认设置后将无法修改。</text>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn cancel-btn" bindtap="cancelGenderChange">
+          <text class="btn-text">取消</text>
+        </view>
+        <view class="modal-divider-vertical"></view>
+        <view class="modal-btn confirm-btn" bindtap="confirmGenderChange">
+          <text class="btn-text">确认</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

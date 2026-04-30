@@ -1,0 +1,9 @@
+{
+  "name": "cleanup_duplicate_rooms",
+  "version": "1.0.0",
+  "description": "清理数据库中重复的聊天室记录",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

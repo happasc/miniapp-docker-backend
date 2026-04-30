@@ -1,0 +1,9 @@
+{
+  "name": "csr_approve_settlement",
+  "version": "1.0.0",
+  "description": "客服批量确认打手结算请求",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

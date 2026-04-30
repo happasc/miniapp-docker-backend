@@ -1,0 +1,14 @@
+{
+  "name": "booster_finish_order",
+  "version": "1.0.0",
+  "description": "打手提交结单",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

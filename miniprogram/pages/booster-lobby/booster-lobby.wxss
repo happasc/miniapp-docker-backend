@@ -1,0 +1,302 @@
+/* miniprogram/pages/booster-lobby/booster-lobby.wxss */
+page {
+  background-color: #0d0915;
+  color: #fff;
+  height: 100vh;
+}
+
+.lobby-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-stats {
+  display: flex;
+  padding: 40rpx;
+  background: linear-gradient(180deg, #1c142c 0%, #0d0915 100%);
+  margin-top: 15rpx;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 50rpx;
+  font-weight: bold;
+  color: #eabb55;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #a9a5b3;
+}
+
+/* ✨ 新增：结算收益按钮样式 */
+.settle-btn {
+  /* ✨ 修改：固定边距，确保按钮不被挤压 */
+  margin: 20rpx 40rpx 10rpx;
+  background: linear-gradient(90deg, #7c3aed, #6b21a8);
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  height: 80rpx;
+  line-height: 80rpx;
+  box-shadow: 0 4rpx 16rpx rgba(124, 58, 237, 0.4);
+  border: none;
+  /* ✨ 新增：防止按钮被压缩 */
+  flex-shrink: 0;
+  width: calc(100% - 80rpx);
+}
+
+.settle-btn[disabled] {
+  background: rgba(124, 58, 237, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+.pool-title {
+  padding: 0 40rpx 20rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refresh {
+  font-size: 24rpx;
+  color: #a46dff;
+  border: 1rpx solid #a46dff;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.order-list {
+  flex: 1;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  /* ✨ 修改：限制最大高度，防止挤压下方按钮 */
+  max-height: calc(100vh - 350rpx);
+  overflow-y: auto;
+  /* ✨ 添加底部内边距，避免最后一个订单被遮挡 */
+  padding-bottom: 20rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.order-card {
+  background: #1a1625;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✨ 左侧价格显示区域 */
+.price-section-left {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid rgba(234, 187, 85, 0.2);
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.price-value {
+  font-size: 52rpx;
+  color: #eabb55;
+  font-weight: 800;
+  letter-spacing: -1rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.game-tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  flex-shrink: 0;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commission-info {
+  font-size: 22rpx;
+  color: #a46dff;
+  background: rgba(164, 109, 255, 0.1);
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.card-body {
+  font-size: 26rpx;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 30rpx;
+}
+
+.time {
+  font-size: 22rpx;
+  color: #777;
+  margin-top: 10rpx;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-footer .grab-btn {
+  margin: 0;
+  background: #a46dff;
+  color: #fff;
+  border-radius: 40rpx;
+  padding: 0 40rpx;
+  font-size: 28rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  box-shadow: 0 4rpx 12rpx rgba(164, 109, 255, 0.4);
+}
+
+.card-footer .grab-btn[loading] {
+  background: #ccc;
+  color: #fff;
+}
+
+/* ✨ 新增：历史收益入口样式 */
+.history-entry {
+  /* ✨ 修改：固定边距，防止被压缩 */
+  margin: 10rpx 40rpx 20rpx;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(107, 33, 168, 0.1));
+  border: 2rpx solid rgba(124, 58, 237, 0.3);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  /* ✨ 新增：防止被压缩 */
+  flex-shrink: 0;
+}
+
+.history-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.history-arrow {
+  font-size: 24rpx;
+  color: rgba(124, 58, 237, 0.6);
+}
+
+.history-stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.history-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.history-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #eabb55;
+  margin-bottom: 8rpx;
+}
+
+.history-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ✨ 新增：历史收益列表样式 */
+.history-list {
+  margin: 0 40rpx 40rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.empty-history {
+  text-align: center;
+  padding: 60rpx 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 26rpx;
+}
+
+.history-item {
+  background: rgba(26, 22, 37, 0.8);
+  border: 1rpx solid rgba(124, 58, 237, 0.2);
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.history-date {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.history-amount {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #eabb55;
+}
+
+.history-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-confirm-time {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.history-status.confirmed {
+  font-size: 22rpx;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+

@@ -1,0 +1,79 @@
+<view class="container">
+  <navigation-bar title="平台工单调度" back="{{true}}" color="#ffffff"></navigation-bar>
+
+  <view class="content" style="padding-top: calc(env(safe-area-inset-top) + 44px + 20rpx);">
+    <!-- 顶部数据看板 -->
+    <view class="dashboard">
+      <view class="dash-item">
+        <text class="dash-num waiting">{{stats.waiting}}</text>
+        <text class="dash-label">待派发</text>
+      </view>
+      <view class="dash-item">
+        <text class="dash-num processing">{{stats.processing}}</text>
+        <text class="dash-label">服务中</text>
+      </view>
+      <view class="dash-item">
+        <text class="dash-num total">{{stats.total}}</text>
+        <text class="dash-label">总工单</text>
+      </view>
+    </view>
+
+    <!-- 选项卡 -->
+    <view class="tabs">
+      <view class="tab-item {{currentTab === 'waiting' ? 'active' : ''}}" bindtap="switchTab" data-tab="waiting">待派发</view>
+      <view class="tab-item {{currentTab === 'processing' ? 'active' : ''}}" bindtap="switchTab" data-tab="processing">进行中</view>
+      <view class="tab-item {{currentTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+    </view>
+
+    <!-- 工单列表 -->
+    <scroll-view scroll-y class="order-list">
+      <block wx:if="{{orders.length > 0}}">
+        <view class="order-card" wx:for="{{orders}}" wx:key="_id">
+          <view class="card-header">
+            <text class="order-id">单号：{{item._id}}</text>
+            <text class="order-time">{{item.createTimeFmt}}</text>
+          </view>
+          <view class="card-body">
+            <view class="game-info">
+              <text class="game-name">{{item.gameName}}</text>
+              <text class="service-name">{{item.serviceName}}</text>
+            </view>
+            <view class="price-info">
+              <text class="label">金额：</text>
+              <text class="amount">￥{{item.amount}}</text>
+            </view>
+          </view>
+          <view class="card-footer">
+            <block wx:if="{{currentTab === 'waiting'}}">
+               <!-- 改用 open-type="share" 直接触发小程序分享卡片 -->
+               <button class="btn btn-primary" open-type="share" data-item="{{item}}">📤 发送接单卡片</button>
+               <button class="btn btn-danger" bindtap="cancelOrder" data-id="{{item._id}}">🗑 撤单</button>
+            </block>
+            <!-- 其他状态下按需展示按钮 -->
+            <block wx:elif="{{currentTab === 'processing'}}">
+              <!-- 服务中状态（processing） -->
+              <block wx:if="{{item.status === 'processing'}}">
+                <button class="btn btn-warning" bindtap="releaseBooster" data-id="{{item._id}}">🔄 解除接单</button>
+                <button class="btn btn-success" bindtap="confirmComplete" data-id="{{item._id}}">✅ 确认完成</button>
+                <text class="status-text text-processing">训练中...</text>
+              </block>
+              <!-- 待确认状态（finished） -->
+              <block wx:elif="{{item.status === 'finished'}}">
+                <button class="btn btn-warning" bindtap="releaseBooster" data-id="{{item._id}}">🔄 解除接单</button>
+                <button class="btn btn-success" bindtap="confirmComplete" data-id="{{item._id}}">✅ 确认完成</button>
+                <text class="status-text text-finished">待确认...</text>
+              </block>
+            </block>
+             <block wx:elif="{{currentTab === 'completed'}}">
+              <text class="status-text text-completed">已完结</text>
+            </block>
+
+          </view>
+        </view>
+      </block>
+      <view class="empty-state" wx:else>
+        <text>暂无相关工单</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

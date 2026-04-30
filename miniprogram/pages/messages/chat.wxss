@@ -1,0 +1,562 @@
+page {
+  background-color: #1a1b2e;
+  height: 100vh;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88rpx); 
+}
+
+/* 订单提示小卡片样式 */
+.order-tips-card {
+  margin: 20rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 10rpx 24rpx rgba(11,3,32,0.24);
+  border: 1px solid rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+.detail-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.detail-item-title {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.detail-item-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 999px;
+  background: rgba(192,132,252,0.2);
+  color: #f0d5ff;
+}
+.detail-item-sub {
+  margin-top: 10rpx;
+  color: rgba(230,217,255,0.86);
+  font-size: 26rpx;
+}
+.detail-item-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+.order-action {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 24rpx;
+  border-radius: 999px;
+  font-size: 26rpx;
+}
+.order-action-primary {
+  background: linear-gradient(90deg, #8b5cf6, #6b21a8);
+  color: #fff;
+  box-shadow: 0 8rpx 20rpx rgba(124,58,237,0.2);
+}
+
+.chat-scroll {
+  flex: 1;
+  height: 0; 
+  box-sizing: border-box;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+}
+
+.msg-list {
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
+  width: 100%;
+}
+
+.message-item.self {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.message-item.self .avatar {
+  margin-right: 0;
+  margin-left: 20rpx;
+}
+
+.msg-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 65%;
+}
+
+.message-item.self .msg-content {
+  align-items: flex-end;
+}
+
+.message-item.other .msg-content {
+  align-items: flex-start;
+}
+
+.nickname {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8rpx;
+}
+
+.bubble {
+  word-wrap: break-word;
+  padding: 24rpx 30rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.message-item.self .bubble {
+  background: linear-gradient(135deg, #8b5cf6, #6b21a8);
+  color: #fff;
+  border-top-right-radius: 4rpx;
+  box-shadow: 0 4rpx 16rpx rgba(139, 92, 246, 0.2);
+}
+
+.message-item.other .bubble {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-top-left-radius: 4rpx;
+}
+
+/* 卡片类型气泡样式 */
+.game-id-card {
+  padding: 24rpx;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(107, 33, 168, 0.05)) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  display: flex;
+  flex-direction: column;
+  min-width: 480rpx;
+  gap: 12rpx;
+}
+
+.card-title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #c084fc;
+}
+
+.card-content, .card-footer {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.card-id-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  margin: 8rpx 0;
+}
+
+.id-text {
+  font-size: 32rpx;
+  font-family: monospace;
+  font-weight: bold;
+  color: #fff;
+  flex: 1;
+}
+
+.copy-btn {
+  background: #8b5cf6;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(139, 92, 246, 0.3);
+}
+.copy-btn:active {
+  opacity: 0.8;
+}
+
+/* ✨ 退款请求卡片样式 */
+.refund-request-card {
+  padding: 24rpx !important;
+  background: linear-gradient(180deg, rgba(230, 67, 64, 0.15), rgba(245, 87, 108, 0.05)) !important;
+  border: 1px solid rgba(230, 67, 64, 0.4) !important;
+  display: flex;
+  flex-direction: column;
+  min-width: 480rpx;
+  gap: 16rpx;
+}
+
+.refund-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.refund-icon {
+  font-size: 36rpx;
+}
+
+.refund-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #fbbf24;
+}
+
+.refund-info {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.refund-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.refund-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 100rpx;
+  flex-shrink: 0;
+}
+
+.refund-value {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+  flex: 1;
+  word-break: break-all;
+}
+
+.refund-amount {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #fbbf24;
+}
+
+.refund-text {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.refund-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+.refund-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.refund-btn.approve {
+  background: linear-gradient(90deg, #10b981, #059669);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(16, 185, 129, 0.3);
+}
+
+.refund-btn.reject {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.refund-btn:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+.refund-status {
+  margin-top: 8rpx;
+  text-align: center;
+}
+
+.status-approved {
+  font-size: 26rpx;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.status-rejected {
+  font-size: 26rpx;
+  color: #ef4444;
+  font-weight: bold;
+}
+
+/* ✨ 新增：结算请求卡片样式 */
+.settlement-request-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(107, 33, 168, 0.15));
+  border: 2rpx solid rgba(124, 58, 237, 0.3);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  max-width: 520rpx;
+}
+
+.settlement-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.settlement-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.settlement-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+.settlement-info {
+  margin-bottom: 16rpx;
+}
+
+.settlement-row {
+  display: flex;
+  margin-bottom: 8rpx;
+}
+
+.settlement-label {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.7);
+  min-width: 140rpx;
+}
+
+.settlement-amount {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #eabb55;
+}
+
+.settlement-date {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ✨ 新增：分享按钮区域样式 */
+.settlement-share-section {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.share-settlement-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  width: 100%;
+  height: 64rpx;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.share-settlement-btn::after {
+  border: none;
+}
+
+.share-settlement-btn:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+.share-icon {
+  font-size: 32rpx;
+}
+
+.share-text {
+  font-size: 26rpx;
+}
+
+.settlement-actions {
+  display: flex;
+  margin-top: 8rpx;
+}
+
+.settlement-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* 确认打款按钮（可点击） */
+.settlement-btn.confirm {
+  background: linear-gradient(90deg, #7c3aed, #6b21a8);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(124, 58, 237, 0.3);
+}
+
+.settlement-btn.confirm:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+/* 已确认按钮（不可点击） */
+.settlement-btn.confirmed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 2rpx solid rgba(16, 185, 129, 0.3);
+  cursor: not-allowed;
+}
+
+/* ✨ 新增：已作废按钮样式 */
+.settlement-btn.cancelled {
+  background: rgba(156, 163, 175, 0.1);
+  color: #9ca3af;
+  border: 2rpx solid rgba(156, 163, 175, 0.2);
+  text-decoration: line-through;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* 确认时间提示 */
+.settlement-confirm-time {
+  margin-top: 12rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.confirm-time-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.confirm-time-value {
+  font-size: 24rpx;
+  color: rgba(16, 185, 129, 0.8);
+}
+
+/* ✨ 新增：作废原因提示 */
+.settlement-cancel-reason {
+  margin-top: 12rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.cancel-reason-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cancel-reason-value {
+  font-size: 24rpx;
+  color: rgba(156, 163, 175, 0.8);
+  font-style: italic;
+}
+
+/* ✨ 新增：作废时间提示 */
+.settlement-cancel-time {
+  margin-top: 8rpx;
+  display: flex;
+  align-items: center;
+}
+
+.cancel-time-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cancel-time-value {
+  font-size: 24rpx;
+  color: rgba(156, 163, 175, 0.7);
+}
+
+.settlement-status {
+  margin-top: 8rpx;
+  text-align: center;
+  padding: 12rpx;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8rpx;
+}
+
+.status-confirmed {
+  font-size: 24rpx;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.bottom-placeholder {
+  height: 10rpx;
+  width: 100%;
+}
+
+.input-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #20223a;
+  display: flex;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.msg-input {
+  flex: 1;
+  height: 76rpx;
+  background: #1a1b2e;
+  border-radius: 38rpx;
+  padding: 0 40rpx;
+  font-size: 28rpx;
+  color: #fff;
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+}
+
+.send-btn {
+  margin-left: 24rpx;
+  background: linear-gradient(90deg, #8b5cf6, #6b21a8);
+  color: #fff;
+  padding: 0 40rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border-radius: 38rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  text-align: center;
+}

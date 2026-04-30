@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/messages/messages",
+    "pages/messages/chat",
+    "pages/game-detail/game-detail",
+    "pages/orders/orders",
+    "pages/settings/settings",
+    "pages/game-id-manager/game-id-manager",
+    "pages/booster-lobby/booster-lobby",
+    "pages/admin-panel/admin-panel",
+    "pages/csr-panel/csr-panel"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

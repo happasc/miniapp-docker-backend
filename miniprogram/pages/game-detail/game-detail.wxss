@@ -1,0 +1,132 @@
+@import "../../styles/detail-common.wxss";
+
+.page{height:100vh;display:flex;flex-direction:column}
+.detail-scroll{flex:1;min-height:0}
+.detail{padding:0 12px 120px;box-sizing:border-box}
+.detail-image{width:100%;height:180px;display:block}
+
+.detail-image-fallback{
+	background: radial-gradient(circle at top, rgba(192,132,252,0.28), rgba(43,11,89,0.96));
+	display:flex;
+	flex-direction:column;
+	align-items:flex-start;
+	justify-content:flex-end;
+	padding:20px;
+	box-sizing:border-box;
+}
+
+.detail-image-title{font-size:26px;font-weight:800;color:#fff}
+.detail-image-tag{margin-top:8px;font-size:13px;color:rgba(255,214,255,0.92)}
+
+.detail-subheading{margin-top:8px;text-align:center;font-size:13px;color:rgba(230,217,255,0.72)}
+.detail-sections{margin-top:18px}
+.detail-section{margin-bottom:14px}
+.section-head{margin-bottom:10px}
+.section-title{font-size:17px;font-weight:700;color:#ffd6ff}
+.section-desc{margin-top:4px;font-size:12px;line-height:1.7;color:rgba(230,217,255,0.74)}
+
+.price-card{padding:14px 12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));box-shadow:0 10px 24px rgba(11,3,32,0.2);margin-bottom:10px;border:1px solid rgba(255,255,255,0.05)}
+.price-card-active{border-color:rgba(255,214,255,0.45);box-shadow:0 10px 24px rgba(139,92,246,0.28);background:linear-gradient(180deg,rgba(139,92,246,0.18),rgba(255,255,255,0.03))}
+.price-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.price-label{font-size:15px;font-weight:700;color:#fff;flex:1}
+.price-badge{padding:4px 8px;border-radius:999px;background:rgba(255,214,255,0.12);color:#ffd6ff;font-size:11px;white-space:nowrap}
+.price-line{margin-top:8px;font-size:13px;line-height:1.7;color:rgba(230,217,255,0.92)}
+.price-extra{margin-top:8px;font-size:12px;line-height:1.6;color:#ffd6ff}
+
+.coming-card,.appendix-card{margin-top:18px;padding:16px 14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.05)}
+.coming-title,.appendix-title{font-size:16px;font-weight:700;color:#ffd6ff}
+.coming-text{margin-top:8px;font-size:13px;line-height:1.8;color:rgba(230,217,255,0.88)}
+.appendix-item{margin-top:8px;font-size:13px;line-height:1.8;color:rgba(230,217,255,0.88)}
+/* 警告信息特殊样式 */
+.appendix-item.warning-item {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  border-left: 3px solid #ff4444;
+  border-radius: 4px;
+}
+.appendix-item.warning-item:first-of-type {
+  margin-top: 0;
+}
+
+.detail-action-bar{padding:12px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,0.05);background:rgba(11,3,32,0.96);box-shadow:0 -10px 28px rgba(11,3,32,0.36);backdrop-filter:blur(10px)}
+.action-summary{margin-bottom:10px;color:rgba(255,214,255,0.88);font-size:12px;line-height:1.6}
+.detail-order-btn{width:100%;height:44px;line-height:44px;border:none;border-radius:999px;background:linear-gradient(90deg,#c084fc,#7c3aed);color:#fff;font-size:15px;font-weight:700;box-shadow:0 10px 24px rgba(124,58,237,0.38);padding:0;text-align:center;display:flex;align-items:center;justify-content:center}
+.detail-order-btn::after{border:none}
+.detail-order-btn-disabled{background:rgba(255,255,255,0.12)!important;color:rgba(255,255,255,0.52)!important;box-shadow:none}
+
+/* SKU Modal Styles */
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; }
+.order-modal { position: fixed; bottom: -100%; left: 0; right: 0; background: #1a1b2e; border-radius: 40rpx 40rpx 0 0; z-index: 1000; transition: bottom 0.3s ease; padding: 40rpx 30rpx calc(40rpx + env(safe-area-inset-bottom)); box-sizing: border-box; }
+.order-modal.show { bottom: 0; }
+
+/* 自定义金额输入框样式 */
+.custom-amount-input {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-top: 16rpx;
+  border: 2rpx solid rgba(192,132,252,0.3);
+}
+
+.amount-symbol {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #c084fc;
+  margin-right: 8rpx;
+}
+
+.amount-input {
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.amount-input::placeholder {
+  color: rgba(230,217,255,0.4);
+  font-weight: 400;
+}
+
+.custom-amount-hint {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: rgba(230,217,255,0.6);
+  padding-left: 8rpx;
+}
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 30rpx; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.modal-title { font-size: 34rpx; font-weight: bold; color: #fff; }
+.modal-close { font-size: 48rpx; color: #999; line-height: 1; padding: 0 10rpx; }
+
+.modal-body { padding: 30rpx 0; max-height: 60vh; overflow-y: auto; }
+.modal-section { margin-bottom: 40rpx; }
+.modal-section-title { font-size: 28rpx; color: #aaa; margin-bottom: 20rpx; }
+
+.billing-options { display: flex; gap: 20rpx; }
+.billing-btn { flex: 1; text-align: center; padding: 20rpx 0; background: rgba(255, 255, 255, 0.05); border-radius: 16rpx; border: 1px solid transparent; color: #ccc; font-size: 28rpx; transition: all 0.2s; }
+.billing-btn.active { background: rgba(124, 58, 237, 0.15); border-color: #7c3aed; color: #fff; }
+
+.stepper { display: flex; align-items: center; width: 200rpx; background: rgba(255, 255, 255, 0.05); border-radius: 12rpx; overflow: hidden; }
+.stepper-btn { flex: 1; text-align: center; font-size: 36rpx; color: #fff; padding: 10rpx 0; background: rgba(255, 255, 255, 0.05); }
+.stepper-btn.disabled { color: #555; }
+.stepper-value { flex: 1.5; text-align: center; font-size: 30rpx; color: #fff; }
+
+.addon-row { display: flex; justify-content: space-between; align-items: center; }
+.addon-info { display: flex; align-items: baseline; gap: 20rpx; }
+.addon-price { font-size: 24rpx; color: #c084fc; }
+
+.modal-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 30rpx; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.modal-total { font-size: 30rpx; color: #ccc; }
+.total-amount { font-size: 40rpx; font-weight: bold; color: #c084fc; }
+
+.modal-confirm-btn { width: 300rpx; height: 80rpx; line-height: 80rpx; background: linear-gradient(90deg, #c084fc, #7c3aed); color: #fff; border-radius: 40rpx; font-size: 32rpx; font-weight: bold; margin: 0; box-shadow: 0 10rpx 20rpx rgba(124, 58, 237, 0.3); }

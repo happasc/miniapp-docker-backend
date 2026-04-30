@@ -1,0 +1,16 @@
+{
+  "name": "miniapp",
+  "version": "1.0.0",
+  "description": "> **🚀 状态**: 前端高保真原型 (MVP) | **💰 支付**: 本地模拟 | **☁️ 后端**: 待接入云开发",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "wx-server-sdk": "^3.0.4"
+  }
+}

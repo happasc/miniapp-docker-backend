@@ -1,0 +1,33 @@
+@import "../../styles/detail-common.wxss";
+
+.page{height:100vh;display:flex;flex-direction:column}
+.order-scroll{flex:1;min-height:0}
+.role-tabs{display:flex;gap:24px;margin-top:10px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1px}
+.role-tab{padding:8px 0;font-size:15px;color:rgba(230,217,255,0.6);position:relative}
+.role-tab-active{color:#fff;font-weight:700}
+.role-tab-active::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;background:#c084fc;border-radius:3px}
+.order-tabs{display:flex;gap:12px;margin-top:18px;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.order-tabs::-webkit-scrollbar{display:none}
+.order-tab{padding:5px 20px;border-radius:999px;background:rgba(255,255,255,0.06);color:rgba(230,217,255,0.84);font-size:14px;font-weight:500;flex-shrink:0;min-width:auto;height:auto;line-height:1.6;white-space:nowrap;transition:all 0.3s ease;display:inline-flex;align-items:center;justify-content:center}
+.order-tab-active{background:linear-gradient(90deg,#a78bfa,#7c3aed);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,0.4);font-weight:600}
+.detail-list{margin-top:16px}
+.detail-item{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015));border-radius:16px;padding:14px 14px 12px;box-shadow:0 10px 24px rgba(11,3,32,0.24);margin-bottom:12px}
+.detail-item-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.detail-item-title{color:#fff;font-size:16px;font-weight:700}
+.detail-item-status{font-size:12px;padding:4px 10px;border-radius:999px}
+.status-pending{background:rgba(192,132,252,0.2);color:#f0d5ff}
+.status-service{background:rgba(0,255,204,0.2);color:#00ffcc}
+.status-finished{background:rgba(255,204,0,0.2);color:#ffcc00}
+.status-completed{background:rgba(16,185,129,0.2);color:#10b981}
+.status-refunding{background:rgba(255,165,0,0.2);color:#ffa500}
+.status-refunded{background:rgba(255,68,68,0.2);color:#ff4444}
+.detail-item-sub{margin-top:8px;color:rgba(230,217,255,0.86);font-size:13px}
+.detail-item-actions{display:flex;gap:10px;margin-top:14px}
+.order-action{flex:1;text-align:center;padding:10px 12px;border-radius:999px;font-size:13px}
+.order-action-ghost{border:1px solid rgba(255,255,255,0.1);color:#f3dcff;background:rgba(255,255,255,0.04)}
+.order-action-primary{background:linear-gradient(90deg,#c084fc,#7c3aed);color:#fff;box-shadow:0 10px 24px rgba(124,58,237,0.28)}
+/* ✨ 新增：客服按钮样式 */
+.order-action-csr{border:1px solid rgba(124,58,237,0.4);color:#e9d5ff;background:rgba(124,58,237,0.12);font-weight:600}
+.empty-card{margin-top:16px;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.04)}
+.empty-title{font-size:16px;font-weight:700;color:#ffd6ff}
+.empty-text{margin-top:8px;font-size:13px;line-height:1.8;color:rgba(230,217,255,0.86)}

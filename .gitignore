@@ -1,0 +1,14 @@
+node_modules/
+*.pyc
+__pycache__/
+backend/data/
+backend/uploads/
+.env
+.env.*
+.DS_Store
+package-lock.json
+*.log
+
+# Sensitive config files (contain AppID and credentials)
+project.private.config.json
+project.config.json

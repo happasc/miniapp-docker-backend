@@ -1,0 +1,10 @@
+.cloud-tip-modal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center}
+.cloud-tip-modal__mask{position:absolute;inset:0;background:rgba(0,0,0,0.45)}
+.cloud-tip-modal__panel{position:relative;z-index:1;width:640rpx;max-width:calc(100vw - 64rpx);padding:36rpx 32rpx 28rpx;border-radius:24rpx;background:#fff;box-sizing:border-box;box-shadow:0 24rpx 64rpx rgba(0,0,0,0.18)}
+.cloud-tip-modal__title{font-size:34rpx;font-weight:600;color:#111827;line-height:1.4;text-align:center}
+.cloud-tip-modal__message{margin-top:18rpx;font-size:28rpx;color:#4b5563;line-height:1.6;text-align:center;white-space:pre-wrap}
+.cloud-tip-modal__actions{display:flex;gap:20rpx;margin-top:28rpx}
+.cloud-tip-modal__button{flex:1;height:80rpx;line-height:80rpx;border-radius:999rpx;font-size:28rpx}
+.cloud-tip-modal__button::after{border:none}
+.cloud-tip-modal__button--ghost{background:#f3f4f6;color:#111827}
+.cloud-tip-modal__button--primary{background:#111827;color:#fff}

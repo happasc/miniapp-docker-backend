@@ -1,0 +1,119 @@
+<view class="detail-page page">
+  <navigation-bar title="{{title || '订单详情'}}" back="{{true}}" color="#fff"></navigation-bar>
+
+  <scroll-view class="detail-scroll" scroll-y>
+    <view class="detail detail-body" style="padding-top: 20rpx;">
+      <view class="detail-card">
+        <block wx:if="{{image}}">
+          <image class="detail-image" src="{{image}}" mode="aspectFill"></image>
+        </block>
+        <block wx:else>
+          <view class="detail-image detail-image-fallback">
+            <text class="detail-image-title">{{title}}</text>
+            <text class="detail-image-tag">{{serviceName}}</text>
+          </view>
+        </block>
+      </view>
+
+      <view class="detail-heading">{{title}}</view>
+      <view class="detail-subheading">{{serviceTitle}}</view>
+
+      <view wx:if="{{hasSections}}" class="detail-sections">
+        <block wx:for="{{sections}}" wx:key="title" wx:for-item="section">
+          <view class="detail-section">
+            <view class="section-head">
+              <view class="section-title">{{section.title}}</view>
+              <view wx:if="{{section.description}}" class="section-desc">{{section.description}}</view>
+            </view>
+
+            <block wx:for="{{section.items}}" wx:key="label" wx:for-item="option">
+              <view class="price-card {{option.activeClass}}" bindtap="handleSelectOption" data-option-key="{{option.optionKey}}">
+                <view class="price-row">
+                  <view class="price-label">{{option.label}}</view>
+                  <view wx:if="{{option.badge}}" class="price-badge">{{option.badge}}</view>
+                </view>
+
+                <block wx:for="{{option.prices}}" wx:key="*this" wx:for-item="price">
+                  <view class="price-line">{{price}}</view>
+                </block>
+
+                <view wx:if="{{option.extra}}" class="price-extra">{{option.extra}}</view>
+              </view>
+            </block>
+          </view>
+        </block>
+      </view>
+
+      <view wx:if="{{showComingSoonCard}}" class="coming-card">
+        <view class="coming-title">服务筹备中</view>
+        <view class="coming-text">当前页面已预留详情入口，后续补充具体档位、价格和下单规则。</view>
+      </view>
+
+      <view wx:if="{{appendix}}" class="appendix-card">
+        <view class="appendix-title">{{appendix.title}}</view>
+        <block wx:for="{{appendix.items}}" wx:key="label" wx:for-item="note">
+          <view class="appendix-item {{note.label.indexOf('未成年人') !== -1 || note.label.indexOf('禁止私加') !== -1 ? 'warning-item' : ''}}">{{note.label}}</view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="detail-action-bar">
+    <view wx:if="{{showActionSummary}}" class="action-summary">已选档位：{{selectedOptionSummary}}</view>
+    <button class="detail-order-btn {{isAvailable ? '' : 'detail-order-btn-disabled'}}" bindtap="handleCreateOrder" disabled="{{!isAvailable}}">立即下单</button>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showOrderModal}}" bindtap="closeModal"></view>
+  <view class="order-modal {{showOrderModal ? 'show' : ''}}">
+    <view class="modal-header">
+      <view class="modal-title">{{serviceName}} - 规格选择</view>
+      <view class="modal-close" bindtap="closeModal">×</view>
+    </view>
+    <view class="modal-body">
+      <!-- 自定义金额输入框 -->
+      <view class="modal-section" wx:if="{{isCustomOrder}}">
+        <view class="modal-section-title">自定义金额</view>
+        <view class="custom-amount-input">
+          <text class="amount-symbol">¥</text>
+          <input class="amount-input" type="number" placeholder="请输入整数金额（1-10000）" value="{{customAmount}}" bindinput="handleCustomAmountInput" bindblur="handleCustomAmountBlur" maxlength="5" />
+        </view>
+        <view class="custom-amount-hint">请输入1-10000的整数金额（仅用于测试）</view>
+      </view>
+      
+      <view class="modal-section" wx:else>
+        <view class="modal-section-title">计费方式</view>
+        <view class="billing-options">
+          <block wx:for="{{skuPrices}}" wx:key="original" wx:for-item="sku">
+            <view class="billing-btn {{currentOriginal === sku.original ? 'active' : ''}}" bindtap="switchBillingMode" data-price="{{sku.price}}" data-unit="{{sku.unit}}" data-tier="{{sku.tierName}}" data-original="{{sku.original}}">
+              {{sku.original}}
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="modal-section">
+        <view class="modal-section-title">购买数量</view>
+        <view class="stepper">
+          <view class="stepper-btn {{buyQuantity <= 1 ? 'disabled' : ''}}" bindtap="changeQuantity" data-type="minus">-</view>
+          <view class="stepper-value">{{buyQuantity}}</view>
+          <view class="stepper-btn" bindtap="changeQuantity" data-type="plus">+</view>
+        </view>
+      </view>
+      <view class="modal-section" wx:if="{{hasAddonOption}}">
+        <view class="addon-row">
+          <view class="addon-info">
+            <view class="modal-section-title">额外服务: {{addonLabel}}</view>
+            <view class="addon-price">+{{addonPrice}}元/次</view>
+          </view>
+          <switch checked="{{enableAddon}}" bindchange="toggleAddon" color="#7c3aed" />
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-total">
+        总计：<text class="total-amount">¥{{totalAmount}}</text>
+      </view>
+      <button class="modal-confirm-btn" bindtap="confirmPay">确认支付</button>
+    </view>
+  </view>
+
+</view>

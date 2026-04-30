@@ -1,0 +1,190 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="#fff"></navigation-bar>
+
+<view class="page-container">
+  <!-- 订单顶部提示卡片 -->
+  <view class="order-tips-card" wx:if="{{isOrderChat && orderInfo}}">
+    <view class="detail-item-top">
+      <text class="detail-item-title">{{orderInfo.title || '服务订单'}}</text>
+      <text class="detail-item-status status-pending">{{orderInfo.statusText}}</text>
+    </view>
+    <view class="detail-item-sub">服务档位：{{orderInfo.summary}}</view>
+    <view class="detail-item-sub">价格信息：{{orderInfo.priceSummary}}</view>
+    <view wx:if="{{orderInfo.extra}}" class="detail-item-sub">补充说明：{{orderInfo.extra}}</view>
+    
+    <view class="detail-item-actions" wx:if="{{orderInfo.showBoosterFinishAction || orderInfo.showUserConfirmAction}}">
+      <view class="order-action order-action-primary" wx:if="{{orderInfo.showBoosterFinishAction}}" bindtap="handleBoosterFinish">提交结单</view>
+      <view class="order-action order-action-primary" wx:if="{{orderInfo.showUserConfirmAction}}" bindtap="handleUserConfirm">确认完成</view>
+    </view>
+  </view>
+
+  <!-- 聊天内容区 -->
+  <scroll-view 
+    class="chat-scroll" 
+    scroll-y 
+    scroll-into-view="{{scrollToView}}" 
+    scroll-with-animation="{{true}}">
+    
+    <view class="msg-list">
+      <block wx:for="{{messages}}" wx:key="_id">
+        <view class="message-item {{item.senderId === currentOpenId ? 'self' : 'other'}}">
+          <!-- 头像 -->
+          <image class="avatar" src="{{item.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          
+          <!-- 昵称和气泡的容器 -->
+          <view class="msg-content">
+            <!-- 只有别人发的消息才显示昵称（自己发的可以隐藏或靠右显示） -->
+            <view class="nickname" wx:if="{{item.senderId !== currentOpenId}}">{{item.nickName || '神秘玩家'}}</view>
+            <view class="nickname self-name" wx:else>{{item.nickName || '我'}}</view>
+            
+            <!-- ✨ 退款请求消息特殊显示 -->
+            <view class="bubble refund-request-card" wx:if="{{item.msgType === 'refund_request'}}">
+              <view class="refund-header">
+                <text class="refund-icon">💰</text>
+                <text class="refund-title">退款申请</text>
+              </view>
+              <view class="refund-info" wx:if="{{item.refundInfo}}">
+                <view class="refund-row">
+                  <text class="refund-label">订单号：</text>
+                  <text class="refund-value">{{item.refundInfo.orderNo}}</text>
+                </view>
+                <view class="refund-row">
+                  <text class="refund-label">金额：</text>
+                  <text class="refund-amount">¥{{item.refundInfo.amount}}</text>
+                </view>
+                <view class="refund-row">
+                  <text class="refund-label">原因：</text>
+                  <text class="refund-value">{{item.refundInfo.reason || '用户主动申请'}}</text>
+                </view>
+              </view>
+              <view class="refund-text">{{item.text}}</view>
+              
+              <!-- 客服操作按钮 -->
+              <view class="refund-actions" wx:if="{{isCSR && (!item.refundInfo || item.refundInfo.status === 'pending')}}">
+                <view class="refund-btn approve" data-index="{{index}}" data-action="approve" bindtap="handleProcessRefund">同意退款</view>
+                <view class="refund-btn reject" data-index="{{index}}" data-action="reject" bindtap="handleProcessRefund">拒绝退款</view>
+              </view>
+              
+              <!-- 退款状态提示 -->
+              <view class="refund-status" wx:if="{{item.refundInfo && item.refundInfo.status === 'approved'}}">
+                <text class="status-approved">✓ 已同意退款</text>
+              </view>
+              <view class="refund-status" wx:elif="{{item.refundInfo && item.refundInfo.status === 'rejected'}}">
+                <text class="status-rejected">✗ 已拒绝退款</text>
+              </view>
+            </view>
+
+            <!-- ✨ 新增：结算请求消息 -->
+            <view class="bubble settlement-request-card" wx:elif="{{item.msgType === 'settlement_request'}}">
+              <view class="settlement-header">
+                <text class="settlement-icon">💰</text>
+                <text class="settlement-title">收益结算申请</text>
+              </view>
+              <view class="settlement-info">
+                <view class="settlement-row">
+                  <text class="settlement-label">结算金额：</text>
+                  <text class="settlement-amount">¥{{item.settlementInfo.amount}}</text>
+                </view>
+                <view class="settlement-row">
+                  <text class="settlement-label">结算日期：</text>
+                  <!-- ✨ 修改：使用格式化后的 settleDateStr 字段 -->
+                  <text class="settlement-date">{{item.settlementInfo.settleDateStr || item.settlementInfo.settleDate}}</text>
+                </view>
+              </view>
+              
+              <!-- ✨ 新增：分享按钮（仅打手可见，改为原生分享） -->
+              <view class="settlement-share-section" wx:if="{{!isCSR && item.senderId === currentOpenId && item.settlementInfo.status === 'pending'}}">
+                <button class="share-settlement-btn" 
+                        open-type="share"
+                        data-index="{{index}}"
+                        data-amount="{{item.settlementInfo.amount}}"
+                        data-roomid="{{roomId}}">
+                  <text class="share-icon">📤</text>
+                  <text class="share-text">分享到工作群</text>
+                </button>
+              </view>
+              
+              <!-- 客服操作按钮 -->
+              <view class="settlement-actions">
+                <!-- 待确认状态：显示可点击的确认按钮 -->
+                <view class="settlement-btn confirm" 
+                      wx:if="{{isCSR && item.settlementInfo && item.settlementInfo.status === 'pending'}}"
+                      data-messageid="{{item._id}}" 
+                      data-index="{{index}}"
+                      bindtap="handleConfirmSettlement">
+                  确认打款
+                </view>
+                
+                <!-- 已确认状态：显示已确认按钮（不可点击） -->
+                <view class="settlement-btn confirmed" 
+                      wx:if="{{item.settlementInfo && item.settlementInfo.status === 'confirmed'}}">
+                  ✓ 已确认
+                </view>
+                
+                <!-- ✨ 新增：已作废状态 -->
+                <view class="settlement-btn cancelled" 
+                      wx:if="{{item.settlementInfo && item.settlementInfo.status === 'cancelled'}}">
+                  ✗ 已作废
+                </view>
+              </view>
+              
+              <!-- 确认时间提示 -->
+              <view class="settlement-confirm-time" wx:if="{{item.settlementInfo && item.settlementInfo.status === 'confirmed' && item.settlementInfo.confirmTime}}">
+                <text class="confirm-time-label">确认时间：</text>
+                <text class="confirm-time-value">{{item.settlementInfo.confirmTimeStr}}</text>
+              </view>
+              
+              <!-- ✨ 新增：作废原因提示 -->
+              <view class="settlement-cancel-reason" wx:if="{{item.settlementInfo && item.settlementInfo.status === 'cancelled' && item.settlementInfo.cancelReason}}">
+                <text class="cancel-reason-label">作废原因：</text>
+                <text class="cancel-reason-value">{{item.settlementInfo.cancelReason}}</text>
+              </view>
+              
+              <!-- ✨ 新增：作废时间提示（可选） -->
+              <view class="settlement-cancel-time" wx:if="{{item.settlementInfo && item.settlementInfo.status === 'cancelled' && item.settlementInfo.cancelTimeStr}}">
+                <text class="cancel-time-label">作废时间：</text>
+                <text class="cancel-time-value">{{item.settlementInfo.cancelTimeStr}}</text>
+              </view>
+            </view>
+
+            <!-- 聊天气泡: 普通文本 -->
+            <view class="bubble" wx:elif="{{!item.type || item.type === 'text'}}">{{item.text}}</view>
+
+            <!-- 聊天气泡: 游戏ID卡片 -->
+            <view class="bubble game-id-card" wx:elif="{{item.type === 'game_id_card'}}">
+              <view class="card-title">【系统自动回复】</view>
+              <view class="card-content">你好老板，我已经成功接单！我的游戏ID是：</view>
+              <view class="card-id-box">
+                <text class="id-text" user-select="true">{{item.gameId}}</text>
+                <view class="copy-btn" data-id="{{item.gameId}}" bindtap="copyGameId">复制</view>
+              </view>
+              <view class="card-footer">请在游戏内添加我为好友，这就为您安排上分！</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      
+      <!-- 列表底部锚点，用于自动滚至最新消息位置 -->
+      <view id="bottom" class="bottom-placeholder"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部固定输入区域 -->
+  <view class="input-panel" wx:if="{{!isSystem}}">
+    <input 
+      class="msg-input" 
+      type="text" 
+      placeholder="输入你想咨询的问题..." 
+      value="{{inputText}}" 
+      placeholder-style="color: rgba(255, 255, 255, 0.4);"
+      adjust-position="{{true}}" 
+      cursor-spacing="20" 
+      hold-keyboard="{{true}}" 
+      bindinput="onInput"
+      bindfocus="onFocus"
+      bindkeyboardheightchange="onKeyboardHeightChange"
+      confirm-type="send" 
+      bindconfirm="sendMessage" 
+    />
+    <view class="send-btn" bindtap="sendMessage">发送</view>
+  </view>
+</view>

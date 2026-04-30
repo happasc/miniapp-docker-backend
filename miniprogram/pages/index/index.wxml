@@ -1,0 +1,150 @@
+<navigation-bar title="" back="{{false}}" color="#fff" background="#0b0320"></navigation-bar>
+<scroll-view class="scroll-area" scroll-y>
+  <view class="container">
+
+    <!-- 全局标题：仅在首页显示 -->
+    <view class="global-header" wx:if="{{currentTab=='home'}}">
+      <text class="global-title">GapHunt 寻隙电竞</text>
+      <text class="global-subtitle">专业电竞指导·单单服务平台</text>
+      
+      <!-- ✨ 新增：累计订单量统计 -->
+      <view class="stats-bar">
+        <text class="stats-text">累计订单量：<text class="stats-number">{{totalOrders}}</text></text>
+      </view>
+    </view>
+
+    <block wx:if="{{currentTab=='home'}}">
+    <swiper class="banner-swiper" autoplay interval="4000" circular indicator-dots="true" indicator-color="rgba(255,255,255,0.35)" indicator-active-color="#fff">
+      <block wx:for="{{banners}}" wx:key="index">
+        <swiper-item>
+          <view class="banner-slide">
+            <view class="banner-card-frame">
+              <view class="banner-card" bindtap="openBannerDetail" data-index="{{index}}">
+                <view class="promo-title">{{item.title}}</view>
+                <view class="promo-preview">{{item.previewText}}</view>
+                <view class="promo-more">点击查看全部</view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <view class="actions">
+      <block wx:for="{{serviceTabs}}" wx:key="id">
+        <view class="action-btn {{activeService==item.id ? 'action-btn-active' : ''}}" data-service="{{item.id}}" bindtap="handleServiceChange">{{item.name}}</view>
+      </block>
+    </view>
+    </block>
+
+    <view class="content">
+      <!-- 首页内容（默认） -->
+      <block wx:if="{{currentTab=='home'}}">
+        <view class="section-title">{{serviceTitle}}</view>
+        <view class="section-intro">{{serviceIntro}}</view>
+        <view class="game-grid">
+          <block wx:for="{{displayGames}}" wx:key="id" wx:for-item="item">
+            <view class="game-card {{item.status=='comingSoon' ? 'game-card-soon' : ''}}" bindtap="openGame" data-id="{{item.id}}" data-service="{{item.serviceId}}">
+              <block wx:if="{{item.image}}">
+                <image class="game-image" src="{{item.image}}" mode="aspectFill"></image>
+              </block>
+              <block wx:else>
+                <view class="game-image game-image-fallback">
+                  <text class="fallback-text">{{item.title}}</text>
+                </view>
+              </block>
+              <view class="game-card-body">
+                <view class="game-name">{{item.title}}</view>
+                <view class="game-subtitle">{{item.subtitle}}</view>
+                <view class="game-link">点击查看详情</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </block>
+
+      <!-- 内嵌消息列表视图 -->
+      <block wx:if="{{currentTab=='messages'}}">
+        <view class="section-title">消息</view>
+        <view class="messages">
+          <block wx:for="{{messages}}" wx:for-item="item" wx:key="id">
+            <view class="message-item {{item.disabled ? 'message-item-disabled' : ''}}" 
+                  bindtap="onMessageTap" 
+                  data-id="{{item.id}}"
+                  data-disabled="{{item.disabled}}">
+              <view class="avatar-wrap">
+                <image wx:if="{{item.avatarUrl}}" class="avatar-img" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+                <view wx:else class="avatar-text">{{item.avatarText || '系'}}</view>
+              </view>
+              <view class="message-main">
+                <view class="row">
+                  <text class="title">{{item.title}}</text>
+                  <text class="time">{{item.time}}</text>
+                </view>
+                <text class="snippet">{{item.snippet}}</text>
+              </view>
+              <view class="badge" wx:if="{{item.unread}}">{{item.unreadCount}}</view>
+            </view>
+          </block>
+        </view>
+      </block>
+        <!-- 我的页面（纯净样例） -->
+      <block wx:if="{{currentTab=='me'}}">
+        <view class="me-page">
+          <view class="me-card" wx:if="{{authState.loggedIn}}">
+            <image class="me-avatar-image" wx:if="{{authState.userInfo.avatarUrl || authState.userInfo.avatar}}" src="{{authState.userInfo.avatarUrl || authState.userInfo.avatar}}" mode="aspectFill"></image>
+            <view class="me-avatar" wx:else>GH</view>
+            <view class="me-info">
+              <view class="me-name">
+                {{authState.userInfo.nickName || authState.userInfo.nickname || 'GapHunt 用户'}}
+                <text class="role-tag admin" wx:if="{{authState.isAdmin}}">管理员</text>
+                <text class="role-tag booster" wx:if="{{authState.isBooster}}">认证陪玩</text>
+                <text class="role-tag csr" wx:if="{{authState.isCSR}}">专属客服</text>
+              </view>
+              <view class="me-brief">ID: {{authState.user_id}}</view>
+            </view>
+          </view>
+
+          <view class="me-guest" wx:else>
+            <view class="me-name">未登录</view>
+            <view class="me-brief">登录后可访问订单，并同步你的账号信息</view>
+            <button class="me-login-btn" loading="{{loginLoading}}" bindtap="handleWechatLogin">微信一键登录</button>
+            <view class="me-login-tip" wx:if="{{loginLoading}}">正在调用登录接口，请稍候...</view>
+            <view class="me-login-error" wx:if="{{loginError}}">{{loginError}}</view>
+          </view>
+
+          <view class="me-actions">
+            <!-- ✨ 打手专属可见的接单池入口 -->
+            <view class="me-link booster-lobby" data-page="booster-lobby" bindtap="openMeDetail" wx:if="{{authState.isBooster}}">🏆 专属接单大厅</view>
+            <!-- ✨ 管理员和客服可见的后台调度入口 -->
+            <view class="me-link admin-panel" data-page="admin-panel" bindtap="openMeDetail" wx:if="{{authState.isAdmin || authState.isCSR}}">⚙️ 平台工单调度</view>
+            <!-- ✨ 客服专属可见的客服工作台入口 -->
+            <view class="me-link csr-panel" data-page="csr-panel" bindtap="openMeDetail" wx:if="{{authState.isCSR}}">🎧 客服工作台</view>
+            
+            <view class="me-link" data-page="orders" bindtap="openMeDetail">我的订单</view>
+            <view class="me-link" data-page="settings" bindtap="openMeDetail">设置</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="bottom-nav">
+  <view class="{{currentTab=='home' ? 'nav-item active' : 'nav-item'}}" data-tab="home" bindtap="onNavTap">
+    <view class="selected-bg"></view>
+    <image class="icon" src="../../images/icons/home.svg" mode="aspectFit"></image>
+    <view class="label">首页</view>
+  </view>
+  <view class="{{currentTab=='messages' ? 'nav-item active' : 'nav-item'}}" data-tab="messages" bindtap="onNavTap">
+    <view class="selected-bg"></view>
+    <image class="icon" src="../../images/icons/message.svg" mode="aspectFit"></image>
+    <view class="nav-badge" wx:if="{{hasGlobalUnread}}"></view>
+    <view class="label">消息</view>
+  </view>
+  <view class="{{currentTab=='me' ? 'nav-item active' : 'nav-item'}}" data-tab="me" bindtap="onNavTap">
+    <view class="selected-bg"></view>
+    <image class="icon" src="../../images/icons/user.svg" mode="aspectFit"></image>
+    <view class="label">我</view>
+  </view>
+</view>

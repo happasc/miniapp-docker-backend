@@ -1,0 +1,11 @@
+<view wx:if="{{show}}" class="cloud-tip-modal">
+  <view class="cloud-tip-modal__mask" bindtap="handleMaskTap"></view>
+  <view class="cloud-tip-modal__panel">
+    <view class="cloud-tip-modal__title" wx:if="{{title}}">{{title}}</view>
+    <view class="cloud-tip-modal__message" wx:if="{{message}}">{{message}}</view>
+    <view class="cloud-tip-modal__actions">
+      <button class="cloud-tip-modal__button cloud-tip-modal__button--ghost" bindtap="handleCancel">{{cancelText}}</button>
+      <button class="cloud-tip-modal__button cloud-tip-modal__button--primary" bindtap="handleConfirm">{{confirmText}}</button>
+    </view>
+  </view>
+</view>

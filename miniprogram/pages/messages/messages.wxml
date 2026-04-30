@@ -1,0 +1,40 @@
+<navigation-bar title="消息中心" back="{{false}}" color="#fff"></navigation-bar>
+
+<view class="container">
+  <!-- 官方系统公告入口 -->
+  <view class="section-title">官方动态</view>
+  <view class="announcement-item" bindtap="goSystemNotice">
+    <image class="icon" src="/images/icons/notice.png"></image>
+    <view class="content">系统公告与活动</view>
+    <view class="badge" wx:if="{{hasNewNotice}}"></view>
+  </view>
+
+  <view class="section-title">我的售后对话</view>
+  <!-- 客服/管理员专属视图：待处理工单池 -->
+  <block wx:if="{{userInfo.isCustomerService || userInfo.isAdmin}}">
+    <view class="cs-panel">
+      <view class="cs-title">🛠️ 客服工作台 ({{userInfo.isAdmin ? '全区' : userInfo.serviceGameType}})</view>
+      <view class="chat-item" wx:for="{{csPendingRooms}}" wx:key="_id" bindtap="enterChat" data-roomid="{{item._id}}">
+        <image class="avatar" src="{{item.customerAvatar || '/images/icons/default-avatar.png'}}"></image>
+        <view class="info">
+          <view class="name">{{item.customerName || '用户'}} <text class="tag">{{item.gameType}}</text></view>
+          <view class="last-msg">{{item.lastMessage}}</view>
+        </view>
+        <view class="badge" wx:if="{{item.hasNew}}"></view>
+      </view>
+      <view class="empty-tip" wx:if="{{csPendingRooms.length === 0}}">暂无待处理售后工单</view>
+    </view>
+  </block>
+
+  <!-- 普通用户视图：我的历史咨询 -->
+  <block>
+    <view class="chat-item" wx:for="{{myRooms}}" wx:key="_id" bindtap="enterChat" data-roomid="{{item._id}}">
+      <image class="avatar" src="/images/icons/cs-avatar.png"></image>
+      <view class="info">
+        <view class="name">{{item.displayName || '专属沟通'}}</view>
+        <view class="last-msg">{{item.lastMessage || '还没有发过消息'}}</view>
+      </view>
+      <view class="badge" wx:if="{{item.hasNew}}"></view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,18 @@
+.container { padding-top: 20rpx; box-sizing: border-box; }
+.section-title { font-size: 28rpx; color: #8b8fb0; margin: 30rpx 40rpx 10rpx; }
+.announcement-item { display: flex; align-items: center; padding: 30rpx 40rpx; background: rgba(255, 255, 255, 0.03); margin-bottom: 2rpx; }
+.announcement-item .icon { width: 50rpx; height: 50rpx; margin-right: 20rpx; }
+.announcement-item .content { flex: 1; font-size: 32rpx; color: #fff; }
+.announcement-item .badge { width: 16rpx; height: 16rpx; background: #ff4757; border-radius: 50%; }
+
+.cs-panel { background: rgba(0, 0, 0, 0.2); }
+.cs-title { color: #ff9bff; font-size: 24rpx; padding: 20rpx 40rpx; }
+.empty-tip { text-align: center; color: #8b8fb0; font-size: 24rpx; padding: 30rpx; }
+
+.chat-item { display: flex; align-items: center; padding: 30rpx 40rpx; background: rgba(255, 255, 255, 0.03); margin-bottom: 2rpx; border-radius: 12rpx; margin: 10rpx 20rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.2); }
+.chat-item .avatar { width: 90rpx; height: 90rpx; border-radius: 50%; margin-right: 24rpx; border: 1px solid #4a4d70; background: #2b0b59; }
+.chat-item .info { flex: 1; overflow: hidden; }
+.chat-item .info .name { font-size: 32rpx; font-weight: bold; margin-bottom: 8rpx; color: #fff; }
+.chat-item .info .tag { font-size: 20rpx; background: #ff4757; padding: 4rpx 12rpx; border-radius: 6rpx; margin-left: 10rpx; color: #fff; }
+.chat-item .info .last-msg { font-size: 24rpx; color: #8b8fb0; max-width: 500rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-item .badge { width: 16rpx; height: 16rpx; background: #ff4757; border-radius: 50%; box-shadow: 0 0 8rpx rgba(255, 71, 87, 0.4); margin-left: auto; }

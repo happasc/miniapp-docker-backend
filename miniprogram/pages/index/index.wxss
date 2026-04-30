@@ -1,0 +1,399 @@
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #0b0320;
+  color: #fff;
+}
+
+.scroll-area {
+  flex: 1;
+  min-height: 0;
+  height: 0;
+}
+
+.container {
+  padding-top: 6px;
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+}
+
+/* 全局标题样式：放在横幅上方，适用于所有页面 */
+.global-header{padding:18px 16px 2px;text-align:center}
+.global-title{color:#ffd6ff;font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.2}
+.global-subtitle{color:rgba(230,217,255,0.9);font-size:12px;margin-top:6px;display:block}
+
+/* ✨ 新增：累计订单量统计样式 */
+.stats-bar {
+  margin-top: 6px;
+  margin-bottom: 2px;
+  padding: 5px 16px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), rgba(107, 33, 168, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.stats-text {
+  color: rgba(230, 217, 255, 0.9);
+  font-size: 13px;
+}
+
+.stats-number {
+  color: #eabb55;  /* 金色数字 */
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* homepage large header removed to create unified full-screen look */
+
+.banner {
+  height: 140px;
+  margin: 16px;
+  border-radius: 20px;
+  background: linear-gradient(90deg,#5b21b6,#8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 12px 30px rgba(11,3,32,0.55);
+  overflow: hidden;
+}
+
+.banner-swiper {
+  height: 180px;
+  margin: 2px 12px 8px;
+}
+
+.banner-slide {
+  height: 100%;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.promo-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.promo-preview {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: rgba(230,217,255,0.95);
+  font-size: 13px;
+  line-height: 1.6;
+  text-overflow: ellipsis;
+}
+
+.promo-more {
+  margin-top: 8px;
+  color: rgba(255, 214, 255, 0.78);
+  font-size: 11px;
+}
+
+.promo-actions {
+  margin-top: 10px;
+}
+
+.buy-btn {
+  background: #fff;
+  color: #4b0066;
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+
+/* 炫彩外框 + 内卡片 */
+.banner-card-frame {
+  padding: 3px; /* 用来显示渐变边框 */
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.95), rgba(164,91,255,0.9));
+  box-shadow: 0 12px 28px rgba(91,33,182,0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-card {
+  width: 100%;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(11,3,32,0.72), rgba(11,3,32,0.6));
+  padding: 14px 12px;
+  box-sizing: border-box;
+  backdrop-filter: blur(6px);
+}
+
+/* 让标题与文本在内卡片上更显著 */
+.banner-card .promo-title {
+  color: #ffd6ff;
+  font-size: 16px;
+}
+
+.banner-card .promo-line {
+  color: rgba(230,217,255,0.98);
+}
+
+/* 可选：微动效（简易） */
+.banner-card-frame.animate {
+  animation: pulse 6s linear infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 8px 18px rgba(91,33,182,0.20); }
+  50% { box-shadow: 0 18px 36px rgba(139,92,246,0.30); }
+  100% { box-shadow: 0 8px 18px rgba(91,33,182,0.20); }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 16px;
+  gap: 10px;
+}
+
+.action-btn {
+  background: linear-gradient(180deg,#8b5cf6,#6b21a8);
+  color: #fff;
+  border-radius: 24px;
+  padding: 10px 20px;
+  font-size: 16px;
+  box-shadow: 0 8px 18px rgba(107,33,168,0.35);
+  flex: 1;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.action-btn-active {
+  background: linear-gradient(180deg,#c084fc,#7c3aed);
+  box-shadow: 0 10px 24px rgba(168,85,247,0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.content {
+  min-height: 200px;
+}
+
+.section-title {
+  color: #e9d8ff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 12px 16px 6px;
+}
+
+.section-intro {
+  padding: 0 16px 8px;
+  color: rgba(230,217,255,0.76);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.game-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px 12px 40px;
+  gap: 12px;
+}
+
+.game-card {
+  width: calc(50% - 12px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(11,3,32,0.25);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.game-card-soon {
+  opacity: 0.92;
+}
+
+.game-image {
+  width: 100%;
+  height: 110px;
+  display: block;
+}
+
+.game-image-fallback {
+  background: radial-gradient(circle at top, rgba(192,132,252,0.32), rgba(59,15,102,0.92));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.fallback-text {
+  color: rgba(255,255,255,0.94);
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.game-card-body {
+  padding: 12px;
+}
+
+.game-name {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.game-subtitle {
+  margin-top: 6px;
+  color: rgba(230,217,255,0.82);
+  font-size: 12px;
+  line-height: 1.6;
+  min-height: 38px;
+}
+
+.game-link {
+  margin-top: 10px;
+  color: #ffd6ff;
+  font-size: 11px;
+}
+
+/* 内嵌消息列表样式（与 messages 页面风格一致） */
+.messages{padding:8px 12px 80px}
+.message-item{display:flex;align-items:flex-start;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.01));padding:10px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 18px rgba(11,3,32,0.18)}
+
+/* 禁用状态的消息项：不可点击 */
+.message-item-disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: linear-gradient(180deg, rgba(255,255,255,0.005), rgba(255,255,255,0.005));
+}
+
+.avatar-wrap{width:90rpx;height:90rpx;border-radius:16rpx;margin-right:24rpx;flex-shrink:0;overflow:hidden;background:#2b0b59}
+.avatar-img{width:100%;height:100%;display:block}
+.avatar-text{width:100%;height:100%;background:#6b21a8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:32rpx}
+.message-main{flex:1}
+.row{display:flex;justify-content:space-between;align-items:center}
+.title{color:#ffd6ff;font-weight:700}
+.time{color:rgba(217,207,255,0.7);font-size:12px}
+.snippet{color:rgba(230,217,255,0.95);margin-top:6px;font-size:13px}
+.badge{min-width:22px;height:22px;background:linear-gradient(180deg,#ff9bff,#ffd6ff);color:#4b0066;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:12px;font-weight:700;margin-left:8px}
+
+/* 我的页面样式 */
+.me-page{padding:12px 14px}
+.me-card{display:flex;align-items:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px}
+.me-avatar{width:64px;height:64px;border-radius:12px;background:#6b21a8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;margin-right:12px;font-size:20px}
+.me-avatar-image{width:64px;height:64px;border-radius:12px;margin-right:12px;background:#2b0b59}
+.me-info{flex:1}
+.me-name{color:#ffd6ff;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.me-brief{color:rgba(230,217,255,0.9);font-size:13px;margin-top:6px}
+.me-guest{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px}
+.me-login-btn{margin-top:10px;background:linear-gradient(90deg,#8b5cf6,#6b21a8);color:#fff;border-radius:10px}
+.me-login-tip{margin-top:8px;color:rgba(230,217,255,0.85);font-size:12px}
+.me-login-error{margin-top:8px;color:#ffd2d2;background:rgba(239,68,68,0.2);border:1px solid rgba(248,113,113,0.45);padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.5}
+.me-actions{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.me-link{background:linear-gradient(90deg,#3b0f66,#5b21b6);color:#fff;padding:12px;border-radius:10px;text-align:center}
+
+/* ✨ 角色标签样式 */
+.role-tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;margin-left:4px}
+.role-tag.admin{background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#7c2d12}
+.role-tag.booster{background:linear-gradient(90deg,#34d399,#10b981);color:#064e3b}
+.role-tag.csr{background:linear-gradient(90deg,#c084fc,#7c3aed);color:#fff}
+
+/* 聊天覆盖层样式 */
+.chat-overlay{position:fixed;left:0;right:0;top:0;bottom:0;background:linear-gradient(180deg,rgba(11,3,32,0.95),rgba(11,3,32,0.98));z-index:2000;display:flex;align-items:flex-end;justify-content:center}
+.chat-panel{width:100%;height:100%;display:flex;flex-direction:column}
+.chat-messages{flex:1;padding:12px;overflow:auto}
+.chat-msg{margin-bottom:10px;display:flex;flex-direction:column}
+.chat-msg.from-them{align-items:flex-start}
+.chat-msg.from-me{align-items:flex-end}
+.msg-bubble{max-width:78%;padding:10px;border-radius:10px;background:linear-gradient(90deg,#2b0b59,#5b21b6);color:#fff}
+.chat-msg.from-me .msg-bubble{background:linear-gradient(90deg,#ffd6ff,#ff9bff);color:#4b0066}
+.msg-time{font-size:11px;color:rgba(217,207,255,0.6);margin-top:4px}
+.chat-input-area{display:flex;align-items:center;padding:8px 10px;background:rgba(255,255,255,0.02)}
+.chat-input{flex:1;padding:8px 10px;border-radius:8px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06)}
+.chat-send{margin-left:8px;background:linear-gradient(90deg,#8b5cf6,#6b21a8);color:#fff;padding:8px 12px;border-radius:8px;border:none}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  background: linear-gradient(90deg,#2b0b59,#3b0f66);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
+  z-index: 1000;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -8px 24px rgba(11,3,32,0.6);
+  overflow: hidden;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  position: relative;
+}
+
+.nav-badge {
+  position: absolute;
+  top: 8px;
+  right: 32%;
+  width: 10px;
+  height: 10px;
+  background-color: #ff4d4f;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0 0 0 2px #2b0b59;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+.nav-item .label {
+  font-size: 12px;
+  color: rgba(217,207,255,0.9);
+}
+
+.selected-bg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 8px;
+  width: 84px;
+  height: 38px;
+  background: transparent;
+  border-radius: 10px;
+  display: none;
+  z-index: 0;
+}
+
+.nav-item.active .selected-bg {
+  display: block;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 8px 18px rgba(11,3,32,0.45);
+}
+
+.nav-item.active .label {
+  color: #ffffff;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.nav-item.active .icon {
+  opacity: 1;
+  z-index: 1;
+}

@@ -1,0 +1,32 @@
+<navigation-bar title="游戏ID管理" back="{{true}}" color="#fff"></navigation-bar>
+
+<view class="container">
+  <view class="intro-text">
+    在这里设置不同游戏内的游戏ID，抢单成功后，系统会自动发给老板。
+  </view>
+
+  <view class="game-list">
+    <block wx:for="{{games}}" wx:key="id">
+      <view class="game-card">
+        <view class="game-header">
+          <text class="game-title">{{item.name}}</text>
+        </view>
+        <view class="game-input-container">
+          <input 
+            class="id-input"
+            type="text" 
+            placeholder="尚未设置，点击输入游戏ID" 
+            value="{{inputValues[item.id] !== undefined ? inputValues[item.id] : (gameAccounts[item.id] || '')}}"
+            data-gameid="{{item.id}}"
+            bindinput="onInputChanging"
+            bindblur="onInputBlur"
+            placeholder-style="color: rgba(255,255,255,0.4);" 
+          />
+          <view wx:if="{{inputValues[item.id] !== undefined && inputValues[item.id] !== (gameAccounts[item.id] || '')}}" class="save-btn" data-gameid="{{item.id}}" bindtap="saveSingle">保存</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- <view class="footer-btn" bindtap="saveAll">全部保存</view> -->
+</view>
